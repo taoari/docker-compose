@@ -29,5 +29,3 @@ response = client.chat.completions.create(
 # The traces will be available in the Phoenix App for the above messsages
 assistant_reply = response.choices[0].message.content
 print(assistant_reply)
-
-import pdb; pdb.set_trace()
