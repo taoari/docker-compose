@@ -1,0 +1,18 @@
+services:
+  tgi:
+    image: ghcr.io/huggingface/text-generation-inference:2.2.0
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "8080:80"
+    volumes:
+      - ${HF_HOME}/hub:/data
+    command: >
+      --model-id jsincn/phi-3-mini-128k-instruct-awq
+      --max-input-length 2000
+      --max-total-tokens 2048

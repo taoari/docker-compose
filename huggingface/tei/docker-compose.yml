@@ -1,0 +1,17 @@
+services:
+  tei:
+    image: ghcr.io/huggingface/text-embeddings-inference:1.5
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "8081:80"
+    volumes:
+      - ${HF_HOME}/hub:/data
+    command: >
+      --model-id Alibaba-NLP/gte-large-en-v1.5 
+      --auto-truncate
