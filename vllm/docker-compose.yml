@@ -1,0 +1,19 @@
+services:
+  vllm:
+    image: vllm/vllm-openai:v0.5.5
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ${HF_HOME}/hub:/data
+    command: >
+      --model jsincn/phi-3-mini-128k-instruct-awq
+      --max-model-len 2048
+      --gpu-memory-utilization 0.5
+      --enforce-eager
