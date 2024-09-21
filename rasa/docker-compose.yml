@@ -1,0 +1,28 @@
+version: '3.0'
+services:
+  core:
+    image: rasa/rasa:3.6.20-full
+    command: run --enable-api --cors="*" --endpoints endpoints_docker.yml
+    ports:
+      - 5005:5005
+    volumes:
+      - ./:/app
+
+  actions:
+    # build:
+    #   dockerfile: Dockerfile
+    image: rasa/rasa:3.6.20-full
+    command: run actions 
+    ports:
+      - 5055:5055
+    volumes:
+      - ./:/app
+
+  webui:
+    image: python
+    command: python -m http.server 5000
+    ports:
+      - 5000:5000
+    volumes:
+      - ./webui:/app
+    working_dir: /app

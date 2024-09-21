@@ -1,0 +1,8 @@
+.config
+.keras
+.rasa
+
+models
+
+*.pyc
+*~
