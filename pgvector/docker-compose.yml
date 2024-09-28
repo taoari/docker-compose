@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  pgvector:
+    image: pgvector/pgvector:0.7.4-pg16
+    container_name: pgvector-container
+    environment:
+      POSTGRES_USER: langchain
+      POSTGRES_PASSWORD: langchain
+      POSTGRES_DB: langchain
+    ports:
+      - "5423:5432"
+    # restart: always
