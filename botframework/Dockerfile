@@ -14,8 +14,8 @@ COPY requirements.txt /app/
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# # Copy the rest of the application code into the container
-# COPY . /app/
+# Copy the rest of the application code into the container
+COPY . /app/
 
 # Expose the port on which the bot will run
 EXPOSE 3978
