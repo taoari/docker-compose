@@ -13,6 +13,6 @@ services:
     volumes:
       - ${HF_HOME}/hub:/data
     command: >
-      --model-id jsincn/phi-3-mini-128k-instruct-awq
-      --max-input-length 2000
-      --max-total-tokens 2048
+      --model-id AMead10/Llama-3.2-1B-Instruct-AWQ
+      --max-input-length 4000
+      --max-total-tokens 4096

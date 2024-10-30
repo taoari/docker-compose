@@ -1,0 +1,22 @@
+services:
+  infinity:
+    image: michaelf34/infinity:0.0.55
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "8081:80"
+    environment:
+      CUDA_VISIBLE_DEVICES: 0
+    volumes:
+      - ${HF_HOME}:/app/.cache/huggingface
+    command: >
+      v2
+      --model-id sentence-transformers/all-MiniLM-L6-v2
+      --model-id Alibaba-NLP/gte-large-en-v1.5
+      --url-prefix "/v1"
+      --port 80
