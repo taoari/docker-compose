@@ -1,0 +1,1 @@
+docker run -it -p 80:80 -v ./nginx:/etc/nginx/conf.d nginx
