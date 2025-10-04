@@ -1,0 +1,17 @@
+services:
+  mongodb:
+    image: mongo:latest # Or specify a version like mongo:6
+    container_name: mongodb-container
+    ports:
+      - "27017:27017" # Map host port 27017 to container port 27017
+    volumes:
+      - mongodb_data:/data/db # Persist data using a named volume
+    # environment:
+    #   # Set root username and password (for development, use .env in production)
+    #   - MONGO_INITDB_ROOT_USERNAME=admin
+    #   - MONGO_INITDB_ROOT_PASSWORD=password
+    #   - MONGO_INITDB_DATABASE=mydatabase
+    restart: always # Always restart the container if it stops
+
+volumes:
+  mongodb_data: # Define the named volume
