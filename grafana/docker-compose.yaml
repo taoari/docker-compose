@@ -1,0 +1,15 @@
+services:
+  grafana:
+    image: grafana/grafana:latest # Or grafana/grafana:latest for open-source
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000" # Maps host port 3000 to container port 3000
+    volumes:
+      - grafana-storage:/var/lib/grafana # Persist Grafana data
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin # Default admin username
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Default admin password (change in production)
+
+volumes:
+  grafana-storage:
