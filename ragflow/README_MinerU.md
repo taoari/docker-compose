@@ -20,7 +20,7 @@ uv pip install --no-config "mineru[core]"
 ```yaml
 # docker-compose.yaml
 volumes:
-    ./ragflow-uv-tools:/ragflow/uv-tools
+    ./ragflow-uv-tools:/ragflow/uv_tools
 ```
 
 ```bash
