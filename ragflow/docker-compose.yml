@@ -6,7 +6,10 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    image: ${RAGFLOW_IMAGE}
+    # image: ${RAGFLOW_IMAGE}
+    build:
+      context: .
+      dockerfile: Dockerfile
     # Example configuration to set up an MCP server:
     # command:
     #   - --enable-mcpserver
@@ -36,7 +39,7 @@ services:
       - 5679:5679
       - 9382:9382 # entry for MCP (host_port:docker_port). The docker_port must match the value you set for `mcp-port` above.
     volumes:
-      - ./ragflow-uv_tools:/ragflow/uv_tools
+      # - ./ragflow-uv_tools:/ragflow/uv_tools
       - ./ragflow-logs:/ragflow/logs
       - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
       - ./nginx/proxy.conf:/etc/nginx/proxy.conf
