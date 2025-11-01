@@ -30,6 +30,7 @@ RUN curl -L -o minimal-document.pdf https://raw.githubusercontent.com/py-pdf/sam
 
 # Run a test conversion at build time (optional, for verification)
 RUN uv run mineru -p minimal-document.pdf -o ./output
+RUN rm -R ~/.cache/uv
 
 # Expose port for API
 EXPOSE 9987

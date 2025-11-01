@@ -1,6 +1,7 @@
 services:
   mineru-api:
     build: .
+    image: mineru-api
     container_name: mineru-api
     ports:
       - "9987:9987"
