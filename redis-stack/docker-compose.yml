@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   redis-stack:
-    image: redis/redis-stack:7.4.0-v0
+    image: redis/redis-stack:latest # v7.4.0-v7
     container_name: redis-stack
     ports:
       - "6379:6379"
