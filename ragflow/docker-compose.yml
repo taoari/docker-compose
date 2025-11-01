@@ -6,10 +6,10 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    # image: ${RAGFLOW_IMAGE}
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${RAGFLOW_IMAGE}
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     # Example configuration to set up an MCP server:
     # command:
     #   - --enable-mcpserver

@@ -1,0 +1,11 @@
+services:
+  mineru-api:
+    build: .
+    container_name: mineru-api
+    ports:
+      - "9987:9987"
+    environment:
+      - UV_COMPILE_BYTECODE=1
+      - UV_LINK_MODE=copy
+    # restart: unless-stopped
+
