@@ -1,15 +1,15 @@
+# The RAGFlow team do not actively maintain docker-compose-CN-oc9.yml, so use them at your own risk. 
+# However, you are welcome to file a pull request to improve it.
 include:
   - ./docker-compose-base.yml
 
 services:
   ragflow:
-    platform: linux/amd64
     depends_on:
       mysql:
         condition: service_healthy
-    build:
-      context: ../
-      dockerfile: Dockerfile
+    image: edwardelric233/ragflow:oc9
+    container_name: ragflow-server
     ports:
       - ${SVR_HTTP_PORT}:9380
       - 80:80
@@ -20,6 +20,10 @@ services:
       - ./nginx/proxy.conf:/etc/nginx/proxy.conf
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     env_file: .env
+    environment:
+      - TZ=${TIMEZONE}
+      - HF_ENDPOINT=${HF_ENDPOINT}
+      - MACOS=${MACOS}
     networks:
       - ragflow
     restart: on-failure
@@ -27,20 +31,3 @@ services:
     # If you're using Docker Desktop, the --add-host flag is optional. This flag makes sure that the host's internal IP gets exposed to the Prometheus container.
     extra_hosts:
       - "host.docker.internal:host-gateway"
-  # executor:
-  #   depends_on:
-  #     mysql:
-  #       condition: service_healthy
-  #   image: ${RAGFLOW_IMAGE}
-  #   volumes:
-  #     - ./ragflow-logs:/ragflow/logs
-  #     - ./nginx/ragflow.conf:/etc/nginx/conf.d/ragflow.conf
-  #   env_file: .env
-  #   entrypoint: "/ragflow/entrypoint_task_executor.sh 1 3"
-  #   networks:
-  #     - ragflow
-  #   restart: on-failure
-  #   # https://docs.docker.com/engine/daemon/prometheus/#create-a-prometheus-configuration
-  #   # If you're using Docker Desktop, the --add-host flag is optional. This flag makes sure that the host's internal IP gets exposed to the Prometheus container.
-  #   extra_hosts:
-  #     - "host.docker.internal:host-gateway"
