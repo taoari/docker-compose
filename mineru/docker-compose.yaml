@@ -8,5 +8,6 @@ services:
     environment:
       - UV_COMPILE_BYTECODE=1
       - UV_LINK_MODE=copy
+      - MINERU_DEVICE_MODE=cpu
     # restart: unless-stopped
 

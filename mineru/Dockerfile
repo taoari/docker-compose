@@ -7,13 +7,30 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     PYTHONUNBUFFERED=1 \
+    MINERU_DEVICE_MODE=cpu \
     PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app
 
-# Initialize and install dependencies
+# Initialize the project, then pin torch/torchvision to the PyTorch CPU
+# index. Pinning via [tool.uv.sources] forces the CPU builds no matter what
+# pulls torch in, so the huge nvidia-cuda-* wheels are never resolved even
+# when mineru[core] re-resolves the dependency graph.
 RUN uv init --python 3.12 && \
-    uv add "mineru[core]"
+    cat >> pyproject.toml <<'EOF'
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+EOF
+
+# Resolve everything in a single pass so torch/torchvision honor the CPU pin.
+RUN uv add torch torchvision "mineru[core]"
 
 # Install dependencies required by mineru and OpenCV/PyMuPDF
 RUN apt-get update && apt-get install -y --no-install-recommends \
